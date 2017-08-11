@@ -1,0 +1,36 @@
+// It strips the unit of measure
+@function bk-strip-unit($num, $unit) {
+  @return $num / ($num * 0 + 1) * (1 + $unit);
+}
+
+/// An experimental mixin for realigning your typographic elements with proper graphic design baseline. The intent is to make it much easier to compose pages while maintaining your vertical rhythm.
+/// @param {Number} $bk-type-size-modifier [typeSizeModifier] - The multiplier for type font size, relative to the base font size of your document.
+/// @param {Number} $bk-type-row-span [typeRowSpan] - The multiplier for type font size, relative to the base font size of your document.
+/// @param {Number} $bk-descender-height-scale [descenderHeightScale] - The multiplier for type font size, relative to the base font size of your document.
+/// @param {Number} $sk-base-font-size [baseFontSize] - The base font size on which your type size modifiers are based.
+/// @param {Number} $bk-grid-row-height [gridRowHeight] - The number of pixels for each grid row.
+/// @param {Number} $bk-line-height-override [lineHeightOverride] - Explicit line height override to set an exact value in exceptional cases.
+@mixin basekick(
+  $bk-type-size-modifier,
+  $bk-type-row-span,
+  $bk-descender-height-scale,
+  $sk-base-font-size,
+  $bk-grid-row-height,
+  $bk-line-height-override: false) {
+
+
+  $line-height: $bk-type-row-span * $bk-grid-row-height;
+  @if type-of($bk-line-height-override) == number {
+    $line-height: $bk-line-height-override;
+  }
+
+  $line-height-scale: ($line-height / ($bk-type-size-modifier * $sk-base-font-size));
+
+  $offset: (($line-height-scale - 1) / 2) + $bk-descender-height-scale;
+
+  transform: translateY(bk-strip-unit($offset, em));
+  font-size: bk-strip-unit($bk-type-size-modifier * $sk-base-font-size, px);
+  line-height: bk-strip-unit($line-height-scale, em);
+}
+
+

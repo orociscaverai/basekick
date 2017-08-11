@@ -53,6 +53,41 @@ The base font size on which your type size modifiers are based.
 
 Explicit line height override to set an exact value in exceptional cases.
 
+### SASS (SCSS)
+
+eg.
+```SCSS
+@import "basekick/mixin";
+
+.MyHeading {
+  @include basekick(<options>);
+}
+```
+
+**bk-type-size-modifier** (required)
+
+The multiplier for type font size, relative to the base font size of your document.
+
+**bk-descender-height-scale** (required)
+
+The height of the descender expressed as a ratio of the font.
+
+**bk-type-row-span** (required)
+
+The number of rows the type should span.
+
+**bk-grid-row-height** (required)
+
+The number of pixels for each grid row.
+
+**bk-base-font-size** (required)
+
+The base font size on which your type size modifiers are based.
+
+**bk-line-height-override** (optional)
+
+Explicit line height override to set an exact value in exceptional cases.
+
 ### JS
 
 eg.
